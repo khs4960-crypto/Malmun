@@ -794,7 +794,7 @@ function chatLogHTML(){
     }
   });
   if(chat.busy)out.push('<div class="bub ai typing" aria-label="입력 중"><i></i><i></i><i></i></div>');
-  if(chat.err)out.push('<div class="err"><span>'+h(chat.err)+'</span><button class="btn sm" data-act="chatretry">다시 시도</button></div>');
+  if(chat.err)out.push('<div class="err"><span>'+h(chat.err)+'</span><button class="btn sm" data-act="chatretry">다시 시도</button></div>'+aiLinkHTML());
   return out.join('');
 }
 function updChat(){var l=$('#chatlog');if(view==='chat'&&l){l.innerHTML=chatLogHTML();scrollEnd()}else if(view==='chat')render()}

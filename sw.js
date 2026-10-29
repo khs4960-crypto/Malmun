@@ -1,5 +1,5 @@
 /* 말문 영어회화 — offline cache */
-const V='malmun-v5';
+const V='malmun-v6';
 const FONTS='malmun-fonts';
 const SHELL=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'];
 
