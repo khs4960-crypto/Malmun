@@ -1017,7 +1017,24 @@ initAI();initCloud();
 </script>
 
 <script>
-if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+(function(){
+  if(!('serviceWorker' in navigator))return;
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+    navigator.serviceWorker.ready.then(function(){
+      var n=0;
+      (function chk(){
+        caches.match('index.html').then(function(r){
+          if(r){
+            try{if(localStorage.getItem('malmun.offline')==='1')return;localStorage.setItem('malmun.offline','1')}catch(e){}
+            var t=document.getElementById('toast');
+            if(t){t.textContent='오프라인 준비 완료! 이제 인터넷 없이도 열려요.';t.classList.add('show');setTimeout(function(){t.classList.remove('show')},4500)}
+          }else if(++n<30)setTimeout(chk,1000);
+        });
+      })();
+    });
+  });
+})();
 </script>
 </body>
 </html>
