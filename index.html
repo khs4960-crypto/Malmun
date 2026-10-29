@@ -637,8 +637,9 @@ function requeue(id,gap){var at=Math.min(sess.q.length,sess.i+1+gap);sess.q.spli
 /* ---------- rendering ---------- */
 var view='learn', rkind='sent', wkind='word', sfilter='learning', delArm=null;
 function renderChrome(){
-  var net=$('#net'),ok=AI&&online();
-  net.className='pill'+(ok?' on':'');net.lastChild.textContent=aiState==='checking'?'확인 중':ok?'AI 연결됨':'오프라인';
+  var net=$('#net'),on=online(),inClaude=!!(window.claude&&window.claude.use);
+  var label=!on?'오프라인':!inClaude?'온라인':aiState==='checking'?'확인 중':AI?'AI 연결됨':'온라인 · AI 꺼짐';
+  net.className='pill'+(on?' on':'');net.lastChild.textContent=label;
   var s=S.settings;$('#lvchip').textContent='Lv.'+s.level+' '+LEVELS[s.level].n;
   $('#gearbtn').innerHTML=I.gear;
   var due=dueCards().length+dueWords().length;

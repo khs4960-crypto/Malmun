@@ -1,5 +1,5 @@
 /* 말문 영어회화 — offline cache */
-const V='malmun-v1';
+const V='malmun-v2';
 const FONTS='malmun-fonts';
 const SHELL=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
