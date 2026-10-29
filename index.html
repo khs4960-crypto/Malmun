@@ -324,6 +324,8 @@ var B=[
 [5,'카페·식당','저는 어느 쪽이든 괜찮아요.','I could go either way.','/aɪ kʊd ˈɡoʊ ˈiðər ˌweɪ/','선택을 상대에게 맡길 때 "Whatever"보다 훨씬 예의 있게 들려요.',[['go either way','/ˈɡoʊ ˈiðər ˌweɪ/','표현','어느 쪽이든 좋다']],['솔직히 식당은 어디든 괜찮아요.','Honestly, I could go either way on the restaurant.','/ˈɑnɪstli, aɪ kʊd ˈɡoʊ ˈiðər ˌweɪ ɑn ðə ˈrɛstəˌrɑnt/']]
 ];
 
+var AI_URL='https://claude.ai/artifact/3ybsJpZm2ZHaBfaBpP7J7J';
+function aiLinkHTML(){return window.claude?'':'<a class="btn primary" style="width:100%;text-decoration:none;margin-bottom:12px" href="'+AI_URL+'" target="_blank" rel="noopener">Claude 앱에서 AI 기능 열기</a>'}
 var SCN=[
   {id:'cafe',ko:'카페에서 주문',en:'Ordering at a café',role:'a friendly barista at a busy coffee shop taking the learner\'s order'},
   {id:'cowork',ko:'직장 동료와 스몰토크',en:'Small talk at work',role:'a friendly coworker chatting with the learner in the office kitchen on a Monday morning'},
@@ -762,7 +764,7 @@ function voiceBoxHTML(){
 function viewChat(){
   if(!chat.sc){
     return '<div class="intro"><span class="eyebrow">실전 대화</span><h2>상황을 고르면 AI가 상대역을 맡아요</h2><p>AI의 말을 듣고, 마이크나 입력으로 답해 보세요. 어색한 문장은 자연스러운 표현으로 고쳐 드려요.</p></div>'+
-     (!AI?'<div class="err" style="margin-bottom:12px">AI 대화는 인터넷에 연결된 Claude 앱에서 쓸 수 있어요.</div>':'')+
+     (!AI?'<div class="err" style="margin-bottom:12px">AI 대화는 인터넷에 연결된 Claude 앱에서 쓸 수 있어요.</div>'+aiLinkHTML():'')+
      scnFreshHTML()+
      '<p class="sec" style="margin:16px 0 8px">기본 상황</p><div class="sc-grid">'+SCN.map(function(x){return '<button class="sc" data-act="chatstart" data-id="'+x.id+'"><b>'+h(x.ko)+'</b><span>'+h(x.en)+'</span></button>'}).join('')+'</div>'+
      '<div class="custom"><input id="scIn" type="text" placeholder="직접 상황 입력 (예: 공항에서 짐을 잃어버림)" aria-label="직접 상황 입력"><button class="btn" data-act="chatcustom">시작</button></div>'+voiceBoxHTML();
@@ -842,7 +844,7 @@ function viewTrans(){
   return '<div class="seg"><button class="'+(tr.dir==='ko'?'on':'')+'" data-act="trdir" data-d="ko">한국어 → 영어</button><button class="'+(tr.dir==='en'?'on':'')+'" data-act="trdir" data-d="en">영어 → 한국어</button></div>'+
    '<div class="trbox"><textarea id="trIn" class="in plain" rows="3" placeholder="'+(tr.dir==='ko'?'번역할 한국어를 입력하세요':'Type something in English')+'" aria-label="번역할 내용">'+h(tr.text)+'</textarea>'+
    '<div class="tr-bar"><span class="small">'+(AI?'자연스러운 회화체로 번역해요':'번역은 인터넷 연결이 필요해요')+'</span><button class="btn primary sm" data-act="translate"'+(tr.busy||!AI?' disabled':'')+'>'+(tr.busy?'번역 중…':'번역하기')+'</button></div></div>'+
-   '<div id="trres">'+trResHTML()+'</div>';
+   (!AI?aiLinkHTML():'')+'<div id="trres">'+trResHTML()+'</div>';
 }
 function trResHTML(){
   if(tr.err)return '<div class="err"><span>'+h(tr.err)+'</span><button class="btn sm" data-act="translate">다시 시도</button></div>';
